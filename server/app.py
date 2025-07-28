@@ -58,10 +58,16 @@ class Login(Resource):
         else:
             return {'message': 'Invalid Login'}, 401
 
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return {'message': '204: No Content'}, 204
+
 api.add_resource(ClearSession, '/clear')
 api.add_resource(IndexArticle, '/articles')
 api.add_resource(ShowArticle, '/articles/<int:id>')
 api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
